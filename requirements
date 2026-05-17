@@ -6,3 +6,4 @@ deepface
 tensorflow
 Pillow
 gunicorn 
+kkeras
