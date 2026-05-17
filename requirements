@@ -1,0 +1,8 @@
+flask
+opencv-python-headless
+face-recognition
+numpy
+deepface
+tensorflow
+Pillow
+gunicorn 
