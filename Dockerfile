@@ -1,10 +1,10 @@
 # Upgrade to Python 3.10 to satisfy package requirements
 FROM python:3.10-slim
 
-# Set working directory inside the container
+# Set working directory
 WORKDIR /app/AttendX
 
-# IMPORTANT: Install system dependencies required by OpenCV, dlib, and pip
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -13,17 +13,21 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy your requirements file first (for caching purposes)
 COPY requirements.txt .
 
-# Upgrade pip and install Python packages
+# Prevent memory crash
+ENV CMAKE_BUILD_PARALLEL_LEVEL=1
+
+# Install Python packages
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your application code
 COPY . .
+
+# FIX: Give read/write permissions for Database and Images
+RUN chmod -R 777 /app/AttendX
 
 EXPOSE 7860
 
-# Command to run your attendance system
+# Command to run attendance system (Gunicorn hata diya gaya hai)
 CMD ["python", "app.py"]
