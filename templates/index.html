@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- UPDATED TITLE -->
+    <title>AttendX | Face Attendance</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+
+        body{
+            overflow-x:hidden;;
+        }
+
+        /* Glass Effect */
+        .glass {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Sidebar Animation */
+        #sidebar {
+            transition: all 0.3s ease;
+        }
+
+        /* Custom Gradient */
+        .main-gradient {
+            background: linear-gradient(
+                135deg,
+                #0f172a 0%,
+                #1e293b 35%,
+                #334155 100%
+            );
+        }
+
+        /* Camera Glow */
+        .camera-glow {
+            box-shadow:
+                0 0 10px rgba(255, 0, 0, 0.2),
+                0 0 20px rgba(255, 215, 0, 0.15);
+        }
+
+        /* Hover Buttons */
+        .hover-scale {
+            transition: all 0.25s ease;
+        }
+
+        .hover-scale:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+    </style>
+</head>
+
+<body class="bg-slate-100 flex h-screen text-gray-800">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+        class="w-72 main-gradient text-white flex flex-col shadow-2xl">
+
+        <!-- LOGO -->
+        <div
+            class="h-20 flex items-center px-6 border-b border-slate-700">
+
+            <div
+                class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-yellow-400 flex items-center justify-center shadow-lg">
+
+                <i class="fa-solid fa-expand text-white text-xl"></i>
+
+            </div>
+
+            <!-- UPDATED NAME -->
+            <h1 class="text-3xl font-bold ml-4 tracking-wide">
+                AttendX
+            </h1>
+
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="flex-1 px-4 py-6 space-y-3">
+
+            <!-- LIVE SCANNER -->
+            <a href="/"
+                class="flex items-center px-5 py-4 rounded-2xl
+                bg-gradient-to-r from-red-500 to-yellow-400
+                shadow-lg text-white font-semibold hover-scale">
+
+                <i class="fa-solid fa-camera mr-3 text-lg"></i>
+                Live Scanner
+            </a>
+
+            <!-- ATTENDANCE LOG -->
+            <a href="/logs"
+                class="flex items-center px-5 py-4 rounded-2xl
+                bg-slate-800 hover:bg-slate-700 transition">
+
+                <i class="fa-solid fa-table-list mr-3"></i>
+                Attendance Logs
+            </a>
+
+            <!-- REGISTER -->
+            <a href="/register"
+                class="flex items-center px-5 py-4 rounded-2xl
+                bg-slate-800 hover:bg-slate-700 transition">
+
+                <i class="fa-solid fa-user-plus mr-3"></i>
+                Register New User
+            </a>
+
+            <!-- USER PERCENTAGE -->
+            <a href="/percentage"
+                class="flex items-center px-5 py-4 rounded-2xl
+                bg-slate-800 hover:bg-slate-700 transition">
+
+                <i class="fa-solid fa-chart-pie mr-3"></i>
+                Attendance Percentage
+            </a>
+
+        </nav>
+
+        <!-- LOGOUT -->
+        <div class="p-4 border-t border-slate-700">
+
+            <button
+                class="w-full flex items-center justify-center gap-3
+                bg-red-600 hover:bg-red-700
+                text-white font-semibold
+                py-3 rounded-2xl transition hover-scale">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+
+            </button>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div
+            class="text-center text-xs text-slate-400 py-4 border-t border-slate-800">
+
+            AttendX v3.0 | AI Attendance System
+
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col overflow-y-auto">
+
+        <!-- HEADER -->
+        <header
+            class="h-20 bg-white shadow-md flex items-center justify-between px-8">
+
+            <div>
+
+                <h2 class="text-3xl font-bold text-slate-800">
+                    Entrance Checkpoint
+                </h2>
+
+                <p class="text-sm text-gray-500 mt-1">
+                    AI Powered Face Recognition Attendance
+                </p>
+
+            </div>
+
+            <!-- RIGHT HEADER -->
+            <div class="flex items-center gap-4">
+
+                <!-- REGISTER BUTTON -->
+                <button
+                    class="bg-gradient-to-r from-red-500 to-yellow-400
+                    hover:opacity-90
+                    text-white font-semibold
+                    px-6 py-3 rounded-2xl shadow-lg
+                    flex items-center gap-2 hover-scale">
+
+                    <i class="fa-solid fa-user-plus"></i>
+                    Register New User
+
+                </button>
+
+                <!-- STATUS -->
+                <div
+                    class="bg-green-100 border border-green-300
+                    text-green-700 px-5 py-3 rounded-full
+                    flex items-center gap-2">
+
+                    <span
+                        class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
+
+                    Cloud System Active
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- CONTENT -->
+        <div class="flex-1 p-8">
+
+            <div
+                class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200">
+
+                <!-- CAMERA HEADER -->
+                <div
+                    class="flex items-center justify-between px-8 py-5 border-b bg-slate-50">
+
+                    <div>
+
+                        <h3 class="text-2xl font-bold text-slate-700">
+
+                            <i class="fa-solid fa-video text-red-500 mr-2"></i>
+
+                            Live Camera Feed
+
+                        </h3>
+
+                        <p class="text-gray-500 text-sm mt-1">
+                            Position face in center for accurate detection
+                        </p>
+
+                    </div>
+
+                    <!-- UPDATED CAMERA BUTTON -->
+                    <button
+                        id="toggle-camera"
+                        class="bg-gradient-to-r from-red-500 to-yellow-400
+                        hover:opacity-90
+                        text-white font-semibold
+                        px-6 py-3 rounded-2xl shadow-lg
+                        flex items-center hover-scale">
+
+                        <i class="fa-solid fa-power-off mr-2"></i>
+
+                        Turn On Camera
+
+                    </button>
+
+                </div>
+
+                <!-- CAMERA -->
+                <div class="p-8 bg-slate-100 flex justify-center">
+
+                    <div
+                        class="relative w-full max-w-5xl
+                        bg-black rounded-3xl overflow-hidden
+                        border-[5px] border-slate-800
+                        camera-glow">
+
+                        <!-- CAMERA PLACEHOLDER -->
+                        <div
+                            id="camera-placeholder"
+                            class="h-[600px] flex flex-col items-center justify-center text-center">
+
+                            <i
+                                class="fa-solid fa-video-slash text-8xl text-gray-700 mb-6"></i>
+
+                            <h3 class="text-4xl text-white font-bold mb-4">
+                                Camera is Offline
+                            </h3>
+
+                            <p class="text-gray-400 text-lg">
+                                New Here?
+                                <span class="text-yellow-400 underline cursor-pointer">
+                                    Register Yourself
+                                </span>
+                                first.
+                            </p>
+
+                        </div>
+
+                        <!-- VIDEO -->
+                        <video id="local-video"
+                            autoplay
+                            playsinline
+                            class="hidden w-full">
+                        </video>
+
+                        <!-- PROCESSED FEED -->
+                        <img id="processed-feed"
+                            class="hidden w-full" />
+
+                        <!-- SCANNER CORNERS -->
+                        <div
+                            class="absolute top-5 left-5 w-12 h-12 border-t-[5px] border-l-[5px] border-red-500"></div>
+
+                        <div
+                            class="absolute top-5 right-5 w-12 h-12 border-t-[5px] border-r-[5px] border-yellow-400"></div>
+
+                        <div
+                            class="absolute bottom-5 left-5 w-12 h-12 border-b-[5px] border-l-[5px] border-yellow-400"></div>
+
+                        <div
+                            class="absolute bottom-5 right-5 w-12 h-12 border-b-[5px] border-r-[5px] border-red-500"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- SOURCE BUTTON -->
+    <a href="https://github.com/themehmi/Attendance-Marking-System-OpenCV"
+        target="_blank"
+        class="fixed bottom-6 right-6
+        bg-slate-900 hover:bg-black
+        text-white px-6 py-3 rounded-full
+        shadow-2xl flex items-center gap-3
+        hover-scale">
+
+        <i class="fa-brands fa-github text-lg"></i>
+
+        Source Code
+
+    </a>
+
+    <!-- CAMERA SCRIPT -->
+    <script>
+
+        const toggleBtn = document.getElementById('toggle-camera');
+
+        const localVideo = document.getElementById('local-video');
+
+        const processedFeed = document.getElementById('processed-feed');
+
+        const placeholder = document.getElementById('camera-placeholder');
+
+        let isCameraOn = false;
+
+        let localStream = null;
+
+        async function startCamera() {
+
+            try {
+
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    video: true
+                });
+
+                localVideo.srcObject = localStream;
+                setInterval(sendFrame, 800);
+
+                localVideo.classList.remove('hidden');
+
+                placeholder.classList.add('hidden');
+
+                toggleBtn.innerHTML =
+                    '<i class="fa-solid fa-stop mr-2"></i> Turn Off Camera';
+
+                toggleBtn.classList.remove(
+                    'from-red-500',
+                    'to-yellow-400'
+                );
+
+                toggleBtn.classList.add(
+                    'from-red-700',
+                    'to-red-500'
+                );
+
+            } catch (err) {
+
+                alert("Camera access denied!");
+
+            }
+
+        }
+
+        function stopCamera() {
+
+            if (localStream) {
+
+                localStream.getTracks().forEach(track => track.stop());
+
+            }
+
+            localVideo.classList.add('hidden');
+
+            placeholder.classList.remove('hidden');
+
+            toggleBtn.innerHTML =
+                '<i class="fa-solid fa-power-off mr-2"></i> Turn On Camera';
+
+        }
+
+        toggleBtn.addEventListener('click', () => {
+
+            isCameraOn = !isCameraOn;
+
+            if (isCameraOn) {
+
+                startCamera();
+
+            } else {
+
+                stopCamera();
+
+            }
+
+        });
+
+    </script>
+
+async function sendFrame() {
+
+    if (!isCameraOn) return;
+
+    if (
+        localVideo.videoWidth === 0 ||
+        localVideo.videoHeight === 0
+    ) return;
+
+    const canvas = document.createElement('canvas');
+
+    canvas.width = localVideo.videoWidth;
+    canvas.height = localVideo.videoHeight;
+
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(
+        localVideo,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    const imageData = canvas.toDataURL('image/jpeg');
+
+    try {
+
+        const response = await fetch('/process_frame', {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+                image: imageData
+            })
+
+        });
+
+        const data = await response.json();
+
+        if (data.image) {
+
+            processedFeed.src = data.image;
+
+            processedFeed.classList.remove('hidden');
+
+            localVideo.classList.add('hidden');
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+}
+
+</body>
+</html>
